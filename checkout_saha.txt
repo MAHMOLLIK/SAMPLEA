@@ -1,0 +1,470 @@
+package test.java.stepdefs.com.cvshealth.digital.shop.checkusout;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import test.java.stepdefs.com.cvshealth.digital.library.AbstractStepDefinition;
+import test.java.stepdefs.com.cvshealth.digital.library.ExceptionHandler;
+import test.java.stepdefs.com.cvshealth.digital.library.ExecutionContext;
+import test.java.stepdefs.com.cvshealth.digital.library.OperationsDesktop;
+import test.java.stepdefs.com.cvshealth.digital.library.PropertyFileLoader;
+
+public class Checkout_Integration_Paypal extends AbstractStepDefinition {
+                
+
+
+                String Parent_Window = executionContext.getDriver().getWindowHandle();  
+                
+
+
+                @When("^I add any item to my basket$")
+                public void i_add_any_item_to_my_basket() {
+
+                }
+
+                @When("^I proceed to the checkout page$")
+                public void i_proceed_to_the_checkout_page() {
+
+                }
+
+                @When("^the PayPal feature flag is in the off state$")
+                public void the_PayPal_feature_flag_is_in_the_off_state() {
+
+                }
+
+                @Then("^I can not see PayPal button$")
+                public void i_can_not_see_PayPal_button() {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+                                                String wBtn_Paypal = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_Paypal", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Paypal, "");
+                                                OperationsDesktop.not_Exist(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                @Given("^user navigate \"([^\"]*)\" as a guest$")
+                public void user_navigate_as_a_guest(String checkout_paypal) {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+
+                                                executionContext.setXpathDataPair("", PropertyFileLoader.getInstance().getURL());
+                                                Assert.assertTrue(OperationsDesktop.navigateURL(executionContext));
+
+                                                // searching cream
+                                                String wBtn_Search = ExecutionContext.getObjectLocator("Home_Page", "wBtn_Input", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Search, "cream");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.input(executionContext);
+
+                                                // press enter to search button
+                                                String wBtn_SearchIcon = ExecutionContext.getObjectLocator("Home_Page", "wBtn_SearchIcon", Browser);
+                                                executionContext.setXpathDataPair(wBtn_SearchIcon, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                // clicks to add to basket
+                                                String AddToBasket = ExecutionContext.getObjectLocator("Card_Page", "QA1_AddToBasket", Browser);
+                                                executionContext.setXpathDataPair(AddToBasket, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                //OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                // click checkout
+                                                String wBtn_Checkout = ExecutionContext.getObjectLocator("Checkout_Page", "QA1_Checkout", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Checkout, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                //OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                // click checkout now
+                                                String wBtn_CheckoutNow = ExecutionContext.getObjectLocator("Checkout_Page", "QA1_CheckoutNow", Browser);
+                                                executionContext.setXpathDataPair(wBtn_CheckoutNow, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                //OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                executionContext.setXpathDataPair("", PropertyFileLoader.getInstance().getProperty(checkout_paypal));
+                                                Assert.assertTrue(
+                                                                                "URL " + PropertyFileLoader.getInstance().getProperty(checkout_paypal) + " navigated successfully",
+                                                                                OperationsDesktop.navigateURL(executionContext));
+                                                OperationsDesktop.wait_Page_Load(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+                
+                @When("^user verifies paypal button and clicks$")
+                public void user_verifies_paypal_button_and_clicks(){
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+
+                                                String Iframe_Paypal = ExecutionContext.getObjectLocator("Checkout_Page", "Iframe_Paypal", Browser);
+                                                executionContext.setXpathDataPair(Iframe_Paypal, "");
+                                                // OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.switch_To_Frame_By_Object(executionContext);
+
+                                                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+                                                                                + executionContext.getDriver().getWindowHandles());
+
+                                                String wBtn_Paypal = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_Paypal", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Paypal, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                // OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                                // Thread.sleep(5000);
+
+                                                System.out.println(
+                                                                                "####################################################" + executionContext.getDriver().getTitle());
+
+                                                System.out.println(
+                                                                                "********************************************" + executionContext.getDriver().getWindowHandles());
+                                                   
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                @When("^user completes all required fields in paypal and press continue$")
+                public void user_completes_all_required_fields_in_paypal_and_press_continue() {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+                                                OperationsDesktop.switch_To_Last_Window(executionContext);
+                                                Thread.sleep(3000);
+                                                String Paypal_Email = ExecutionContext.getObjectLocator("Checkout_Page", "Paypal_Email", Browser);
+                                                executionContext.setXpathDataPair(Paypal_Email, "benjamin.piper-buyer@cvshealth.com");
+                                                OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.input(executionContext);
+
+                                                String Paypal_Next = ExecutionContext.getObjectLocator("Checkout_Page", "Paypal_Next", Browser);
+                                                executionContext.setXpathDataPair(Paypal_Next, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                String Paypal_Password = ExecutionContext.getObjectLocator("Checkout_Page", "Paypal_Password", Browser);
+                                                executionContext.setXpathDataPair(Paypal_Password, "Teddie45");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.input(executionContext);
+
+                                                String Paypal_Loging = ExecutionContext.getObjectLocator("Checkout_Page", "Paypal_Loging", Browser);
+                                                executionContext.setXpathDataPair(Paypal_Loging, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                String Paypal_Continue = ExecutionContext.getObjectLocator("Checkout_Page", "Paypal_Continue", Browser);
+                                                executionContext.setXpathDataPair(Paypal_Continue, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                
+                @When("^user redirected on cvs site and validate tax$")
+                public void user_redirected_on_cvs_site_and_validate_tax(){
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+                                                
+                                                Thread.sleep(3000);
+                                                executionContext.getDriver().switchTo().window(Parent_Window);
+                                                System.out.println("Driver switched to Parent_Window  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                                                  Thread.sleep(5000);
+                                                  String Checkout_Tax = ExecutionContext.getObjectLocator("Checkout_Page","Checkout_Tax", Browser); 
+                                                  executionContext.setXpathDataPair(Checkout_Tax,""); 
+                                                  OperationsDesktop.wait_Page_Load(executionContext);
+                                                  //OperationsDesktop.wait_For_Object(executionContext);
+                                                  OperationsDesktop.exist(executionContext);
+                                                System.out.println("#########" +  executionContext.getDriver().getTitle());
+                                                
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                @When("^user able to see the information that I filled in and completed in paypal interface in the corresponding fields within the cvs\\.com checkout page$")
+                public void user_able_to_see_the_information_that_I_filled_in_and_completed_in_paypal_interface_in_the_corresponding_fields_within_the_cvs_com_checkout_page() {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+                                                  String Validate_ShppingAddress = ExecutionContext.getObjectLocator("Checkout_Page","Validate_ShppingAddress", Browser); 
+                                                  executionContext.setXpathDataPair(Validate_ShppingAddress,""); 
+                                                  OperationsDesktop.exist(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                @When("^user clicks on the place order button$")
+                public void user_clicks_on_the_place_order_button() {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+
+                                                System.out.println("#########" +  executionContext.getDriver().getTitle());
+                                String Checkout_Placeorder = ExecutionContext.getObjectLocator("Checkout_Page", "Checkout_Placeorder", Browser);
+                                                executionContext.setXpathDataPair(Checkout_Placeorder, "");
+                                                Thread.sleep(3000);
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                OperationsDesktop.switch_To_Child_Browser_Window_ByTitle(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                @Then("^user directed to an order confirmation page where I can see my order details$")
+                public void user_directed_to_an_order_confirmation_page_where_I_can_see_my_order_details() {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+
+                                                // confirmation
+                                                String Text_Confirmation = ExecutionContext.getObjectLocator("Checkout_Page", "Text_Confirmation", Browser);
+                                                executionContext.setXpathDataPair(Text_Confirmation, "Thanks! Order received.");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.validate_Object_Text(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                @Given("^user navigate \"([^\"]*)\" as a loggedin user$")
+                public void user_navigate_as_a_loggedin_user(String checkout_paypal) {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+                                                executionContext.setXpathDataPair("", PropertyFileLoader.getInstance().getURL());
+                                                Assert.assertTrue(OperationsDesktop.navigateURL(executionContext));
+                                                
+                                                String wBtn_Sign_In = ExecutionContext.getObjectLocator("Home_Page", "wBtn_Sign_In", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Sign_In, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                                
+                                                String Input_Email = ExecutionContext.getObjectLocator("Singin_Page", "Input_Email", Browser);
+                                                executionContext.setXpathDataPair(Input_Email, "saha4311@gmail.com");
+                                                //OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.input(executionContext);
+                                                
+                                                String wBtn_Continue = ExecutionContext.getObjectLocator("Singin_Page", "wBtn_Continue", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Continue, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                                
+                                                String Input_Password = ExecutionContext.getObjectLocator("Singin_Page", "Input_Password", Browser);
+                                                executionContext.setXpathDataPair(Input_Password, "abc12345");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.input(executionContext);
+                                                
+                                                String wBtn_Signin = ExecutionContext.getObjectLocator("Singin_Page", "wBtn_Signin", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Signin, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                                
+                                                // searching cream
+                                                String wBtn_Search = ExecutionContext.getObjectLocator("Home_Page", "wBtn_Input", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Search, "cream");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.input(executionContext);
+
+                                                // press enter to search button
+                                                String wBtn_SearchIcon = ExecutionContext.getObjectLocator("Home_Page", "wBtn_SearchIcon", Browser);
+                                                executionContext.setXpathDataPair(wBtn_SearchIcon, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                // clicks to add to basket
+                                                String AddToBasket = ExecutionContext.getObjectLocator("Card_Page", "QA1_AddToBasket", Browser);
+                                                executionContext.setXpathDataPair(AddToBasket, "");
+                                                OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                // OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                // click checkout
+                                                String wBtn_Checkout = ExecutionContext.getObjectLocator("Checkout_Page", "QA1_Checkout", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Checkout, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                // OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.click(executionContext);
+
+                                                // click checkout now
+                                                String wBtn_CheckoutNow = ExecutionContext.getObjectLocator("Checkout_Page", "QA1_CheckoutNow", Browser);
+                                                executionContext.setXpathDataPair(wBtn_CheckoutNow, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                // OperationsDesktop.wait_Page_Load(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                                
+                                                executionContext.setXpathDataPair("", PropertyFileLoader.getInstance().getProperty(checkout_paypal));
+                                                Assert.assertTrue(
+                                                                                "URL " + PropertyFileLoader.getInstance().getProperty(checkout_paypal) + " navigated successfully",
+                                                                                OperationsDesktop.navigateURL(executionContext));
+                                                OperationsDesktop.wait_Page_Load(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+
+                }
+                
+                @Then("^gift card and FSA/HSA card disappear as a payment option$")
+                public void gift_card_and_FSA_HSA_card_disappear_as_a_payment_option(){
+                                
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+
+                                                String wBtn_GiftCard = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_GiftCard", Browser);
+                                                executionContext.setXpathDataPair(wBtn_GiftCard, "");
+                                                OperationsDesktop.not_Exist(executionContext);
+                                                
+                                                String wBtn_FSAHSA = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_FSA/HSA", Browser);
+                                                executionContext.setXpathDataPair(wBtn_FSAHSA, "");
+                                                OperationsDesktop.not_Exist(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                    
+                }
+                
+                @When("^user clicks to edit in payment section$")
+                public void user_clicks_to_edit_in_payment_section() {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+                                                Thread.sleep(3000);
+                                                executionContext.getDriver().switchTo().window(Parent_Window);
+                                                System.out.println("Driver switched to Parent_Window  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+                                                String wBtn_EditPayment = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_EditPayment", Browser);
+                                                executionContext.setXpathDataPair(wBtn_EditPayment, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                                
+                                                String wBtn_ContinueToReview = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_ContinueToReview", Browser);
+                                                executionContext.setXpathDataPair(wBtn_ContinueToReview, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                                
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+                
+                @Then("^continue order shouldn't proceed until user must select paypayl again$")
+                public void continue_order_shouldn_t_proceed_until_user_must_select_paypayl_again(){
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {
+                                                
+                                                String wBtn_CradDeclined = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_CradDeclined", Browser);
+                                                executionContext.setXpathDataPair(wBtn_CradDeclined, "Card declined. Correct card and billing info or use a different payment method.");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.validate_Object_Text(executionContext);
+                                
+                                                
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+                
+                @When("^user clicks on other (\\d+)rd party payment options visa$")
+                public void user_clicks_on_other_rd_party_payment_options_visa(int arg1) {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                try {
+                                String Switch_Iframe2 = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_Visa", Browser);
+                                executionContext.setXpathDataPair(Switch_Iframe2, "");
+                                OperationsDesktop.wait_For_Object(executionContext);
+                    OperationsDesktop.click(executionContext);
+
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+                
+                @Then("^PayPal button disappear as a payment option$")
+                public void paypal_button_disappear_as_a_payment_option(){
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {        
+                                                String wBtn_Paypal = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_Paypal", Browser);
+                                                executionContext.setXpathDataPair(wBtn_Paypal, "");
+                                                OperationsDesktop.not_Exist(executionContext);
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+                @When("^user cancels the PayPal option within the PayPal interface$")
+                public void user_cancels_the_PayPal_option_within_the_PayPal_interface() {
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {        
+                                                
+                                                OperationsDesktop.switch_To_Last_Window(executionContext);
+                                                String wBtn_PaypalCancel = ExecutionContext.getObjectLocator("Checkout_Page", "wBtn_PaypalCancel", Browser);
+                                                executionContext.setXpathDataPair(wBtn_PaypalCancel, "");
+                                                Thread.sleep(2000);
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.click(executionContext);
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+                @Then("^user brought back to the checkout page and can see any previously filled in information$")
+                public void user_brought_back_to_the_checkout_page_and_can_see_any_previously_filled_in_information(){
+                                reportUtility.performInitialSetupForStep(executionContext);
+                                try {        
+                                                Thread.sleep(3000);
+                                                executionContext.getDriver().switchTo().window(Parent_Window);
+                                                System.out.println("Driver switched to Parent_Window  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                                                String wBtn_PaypalCancel = ExecutionContext.getObjectLocator("Checkout_Page", "wTxt_ShippingAddress", Browser);
+                                                executionContext.setXpathDataPair(wBtn_PaypalCancel, "");
+                                                OperationsDesktop.wait_For_Object(executionContext);
+                                                OperationsDesktop.exist(executionContext);
+                                } catch (Exception e) {
+                                                ExceptionHandler.handleException(e);
+                                                reportUtility.setStatusOfOperationForStep(executionContext, false);
+                                }
+                                reportUtility.finalStatusSetupToExecuteForEveryStep(executionContext);
+                }
+
+}

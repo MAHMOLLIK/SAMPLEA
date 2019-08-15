@@ -1,0 +1,22 @@
+# PGT-433 Paypal: Verify Order is Sucessful #PGT-450 & PGT-470 PayPal #PGT-443 PGT-533
+@paypal1 @Checkout_Regression
+Scenario: Verify Order is Sucessful through paypal as a guest in user
+Given user navigate "checkout_paypal" as a guest
+When user verifies paypal button and clicks
+And user completes all required fields in paypal and press continue
+And user redirected on cvs site and validate tax 
+And user able to see the information that I filled in and completed in paypal interface in the corresponding fields within the cvs.com checkout page  
+And user clicks on the place order button 
+Then user directed to an order confirmation page where I can see my order details 
+
+
+#PGT-433 Paypal: Verify Order is Sucessful #PGT-450 & PGT-470 PayPal #PGT-443 PGT-533
+@tea
+Scenario: Verify Order is Sucessful through paypal as a logged in user
+Given user navigate "checkout_paypal" as a loggedin user
+When user verifies paypal button and clicks 
+And user completes all required fields in paypal and press continue
+And user redirected on cvs site and validate tax
+And user able to see the information that I filled in and completed in paypal interface in the corresponding fields within the cvs.com checkout page  
+And user clicks on the place order button 
+Then user directed to an order confirmation page where I can see my order details
